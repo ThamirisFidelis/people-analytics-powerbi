@@ -10,11 +10,11 @@ O painel apresenta indicadores críticos de movimentação de pessoal, distribui
 
 ### Página 1: Painel de Indicadores
 *(Substitua esta linha pela sua imagem após o upload)*
-![Dashboard de People Analytics](images/dashboard.png)
+![Dashboard de People Analytics](dashboard.png)
 
 ### Página 2: Documentação e Arquitetura do Projeto
 *(Substitua esta linha pela sua imagem após o upload)*
-![Documentação do Projeto](images/documentacao.png)
+![Documentação do Projeto](documentacao.png)
 
 ---
 
