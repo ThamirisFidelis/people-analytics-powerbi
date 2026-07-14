@@ -9,11 +9,9 @@ O painel apresenta indicadores críticos de movimentação de pessoal, distribui
 ## 🖥️ Visualização do Dashboard
 
 ### Página 1: Painel de Indicadores
-*(Substitua esta linha pela sua imagem após o upload)*
 ![Dashboard de People Analytics](dashboard.png)
 
 ### Página 2: Documentação e Arquitetura do Projeto
-*(Substitua esta linha pela sua imagem após o upload)*
 ![Documentação do Projeto](documentacao.png)
 
 ---
@@ -29,9 +27,49 @@ O painel apresenta indicadores críticos de movimentação de pessoal, distribui
 *   **UX/UI Design:** Aplicação de paleta de cores corporativa neutra, cartões flutuantes com sombras suaves para alívio visual e menus interativos de segmentação (filtros por Ano e Gênero).
 
 ---
+---
+
+## 💾 Fórmulas DAX Utilizadas (Métricas 1 a 3)
+
+Aqui estão as fórmulas mais complexas utilizadas para construir a inteligência de dados deste painel:
+
+```dax
+// 1. Total de Ativos (Headcount Acumulado Dinâmico)
+Total_Ativos = 
+VAR DataMax = MAX('dCalendario'[Data])
+VAR AdmitidosAcumulado = 
+    CALCULATE(
+        [Total_Admitidos],
+        FILTER(
+            ALL('dCalendario'),
+            'dCalendario'[Data] <= DataMax
+        )
+    )
+VAR DemitidosAcumulado = 
+    CALCULATE(
+        [Total_Demitidos],
+        FILTER(
+            ALL('dCalendario'),
+            'dCalendario'[Data] <= DataMax
+        )
+    )
+RETURN
+    AdmitidosAcumulado - DemitidosAcumulado
+
+
+// 2. Taxa de Turnover (%)
+Turnover_Taxa = 
+DIVIDE(
+    ([Total_Admitidos] + [Total_Demitidos]) / 2,
+    [Total_Ativos],
+    0
+)
+
+
+// 3. Meta de Turnover (Benchmark de RH)
+Meta_Turnover = AVERAGE('dCargosDepartamentos'[Meta_Turnover_Ano])
 
 ## 📁 Estrutura do Repositório
 
 *   `/images`: Capturas de tela utilizadas na documentação.
 *   `Dashboard_People_Analytics.pbix`: Arquivo original do Power BI para download e análise.
-*   `Dashboard_People_Analytics.pdf`: Versão estática exportada para visualização direta.
